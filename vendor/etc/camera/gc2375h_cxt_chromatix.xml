@@ -1,0 +1,168 @@
+<!--
+  Copyright (c) 2016 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!--
+CommonChromatixInfo:
+    CommonChromatixInfo is the information about chromatix needed for
+        various use cases.
+    Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+        3A and SW PostProc.
+    Entries in this node are common for all sensor modes.
+
+ResolutionChromatixInfo:
+    ResolutionChromatixInfo is the information about chromatix needed for
+        various use cases.
+    Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+        3A and SW PostProc.
+    Entries in this node are specific to sensor resolution.
+
+ChromatixName:
+    Contains the list of chromatix names for all modules.
+    special_mode_mask:
+        It is the bit mask for special modes, which is used for
+            chromatix selection.
+        Special modes can be any mode that needs a special chromatix.
+        Ex:- scene mode, DZOOM mode, OIS capture mode, flash mode
+        This is applicable for CommonChromatixInfo and
+            ResolutionChromatixInfo.
+        special_mode_mask="0" means none of the special modes are
+            selected.
+    sensor_resolution_index:
+        It is the sensor resolution index for which chromatix libraries
+            will be choosen.
+        It is applicable only in ResolutionChromatixInfo.
+
+ISPCommon :
+    Common tuning library name for ISP
+ISPPreview :
+    Preview tuning library name for ISP
+ISPSnapshot :
+    Snapshot tuning library name for ISP
+CPPCommon :
+    Common tuning library name for CPP
+CPPPreview :
+    Preview tuning library name for CPP
+CPPSnapshot :
+    Snapshot tuning library name for CPP
+CPPLiveshot :
+    Liveshot tuning library name for CPP
+PostProc :
+    Tuning library name for postproc module
+A3Preview :
+    Preview tuning library for 3A
+A3Video :
+    Video tuning library for 3A
+
+Order of Resolution Pick:
+    Assume the current sensor mode is "r" and special mode mask is "s".
+    Chromatix for a module and type is choosen in this order till we find a
+        valid chroamtix file name or else NULL is returned.
+    1) From ResolutionChromatixInfo node for which sensor_resolution_index
+        is "r" and special_mode_mask is "s".
+    2) From CommonChromatixInfo node for which special_mode_mask is "s".
+    3) From ResolutionChromatixInfo node for which sensor_resolution_index
+        is "r" and special_mode_mask is "0".
+    4) From CommonChromatixInfo node for which special_mode_mask is "0".
+    5) NULL is returned if we dont find in any of the above cases.
+
+special_mode_mask values:
+    SENSOR_SPECIAL_MODE_NONE = 0,
+    SENSOR_SPECIAL_MODE_FLASH = 1,
+    SENSOR_SPECIAL_MODE_ZOOM_UPSCALE = 2,
+    SENSOR_SPECIAL_MODE_ZOOM_DOWNSCALE = 4,
+    SENSOR_SPECIAL_MODE_OIS_CAPTURE = 8,
+-->
+
+<ChromatixConfigurationRoot>
+  <CommonChromatixInfo>
+    <ChromatixName>
+      <ISPCommon>gc2375h_cxt_common</ISPCommon>
+      <PostProc>gc2375h_cxt_postproc</PostProc>
+      <CPPPreview>gc2375h_cxt_cpp_preview</CPPPreview>
+      <CPPSnapshot>gc2375h_cxt_cpp_preview</CPPSnapshot>
+      <CPPLiveshot>gc2375h_cxt_cpp_preview</CPPLiveshot>
+	  <ISPPreview>gc2375h_cxt_snapshot</ISPPreview>
+      <ISPSnapshot>gc2375h_cxt_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_zsl_preview</A3Video>
+    </ChromatixName>
+  </CommonChromatixInfo>
+  <ResolutionChromatixInfo>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="0">
+      <ISPSnapshot>gc2375h_cxt_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_zsl_preview</A3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 start-->
+      <TMOISPSnapshot>gc2375h_cxt_snapshot</TMOISPSnapshot>
+      <TMOISPVideo>gc2375h_cxt_snapshot</TMOISPVideo>
+      <TMOCPPVideo>gc2375h_cxt_cpp_preview</TMOCPPVideo>
+      <TMOA3Preview>gc2375h_cxt_zsl_preview</TMOA3Preview>
+      <TMOA3Video>gc2375h_cxt_zsl_preview</TMOA3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 end-->
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="0">
+      <ISPSnapshot>gc2375h_cxt_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_zsl_preview</A3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 start-->
+      <TMOISPSnapshot>gc2375h_cxt_snapshot</TMOISPSnapshot>
+      <TMOISPVideo>gc2375h_cxt_snapshot</TMOISPVideo>
+      <TMOCPPVideo>gc2375h_cxt_cpp_preview</TMOCPPVideo>
+      <TMOA3Preview>gc2375h_cxt_zsl_preview</TMOA3Preview>
+      <TMOA3Video>gc2375h_cxt_zsl_preview</TMOA3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 end-->
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="0">
+      <ISPSnapshot>gc2375h_cxt_mix_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_mix_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_mix_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_mix_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_mix_zsl_preview</A3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 start-->
+      <TMOISPSnapshot>gc2375h_cxt_mix_snapshot</TMOISPSnapshot>
+      <TMOISPVideo>gc2375h_cxt_mix_snapshot</TMOISPVideo>
+      <TMOCPPVideo>gc2375h_cxt_mix_cpp_preview</TMOCPPVideo>
+      <TMOA3Preview>gc2375h_cxt_mix_zsl_preview</TMOA3Preview>
+      <TMOA3Video>gc2375h_cxt_mix_zsl_preview</TMOA3Video>
+      <!--HS70 code modify by chengzhi at 2020/03/19 end-->
+    </ChromatixName>
+    <!--#HS70 code for camera mix for dual_cam by gaozhenyu at 2020/03/18 start-->
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="0">
+      <ISPSnapshot>gc2375h_cxt_mix1_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_mix1_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_mix1_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_mix1_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_mix1_zsl_preview</A3Video>
+      <TMOISPSnapshot>gc2375h_cxt_mix1_snapshot</TMOISPSnapshot>
+      <TMOISPVideo>gc2375h_cxt_mix1_snapshot</TMOISPVideo>
+      <TMOCPPVideo>gc2375h_cxt_mix1_cpp_preview</TMOCPPVideo>
+      <TMOA3Preview>gc2375h_cxt_mix1_zsl_preview</TMOA3Preview>
+      <TMOA3Video>gc2375h_cxt_mix1_zsl_preview</TMOA3Video>
+    </ChromatixName>
+    <!--HS70 code for HS70-4620 by xiayu at 2020/03/26 start-->
+    <ChromatixName sensor_resolution_index="4" special_mode_mask="0">
+      <ISPSnapshot>gc2375h_cxt_mix2_snapshot</ISPSnapshot>
+      <ISPVideo>gc2375h_cxt_mix2_snapshot</ISPVideo>
+      <CPPVideo>gc2375h_cxt_mix2_cpp_preview</CPPVideo>
+      <A3Preview>gc2375h_cxt_mix2_zsl_preview</A3Preview>
+      <A3Video>gc2375h_cxt_mix2_zsl_preview</A3Video>
+      <TMOISPSnapshot>gc2375h_cxt_mix2_snapshot</TMOISPSnapshot>
+      <TMOISPVideo>gc2375h_cxt_mix2_snapshot</TMOISPVideo>
+      <TMOCPPVideo>gc2375h_cxt_mix2_cpp_preview</TMOCPPVideo>
+      <TMOA3Preview>gc2375h_cxt_mix2_zsl_preview</TMOA3Preview>
+      <TMOA3Video>gc2375h_cxt_mix2_zsl_preview</TMOA3Video>
+    <!--HS70 code for HS70-4620 by xiayu at 2020/03/26 end-->
+    </ChromatixName>
+    <!--#HS70 code for camera mix for dual_cam by gaozhenyu at 2020/03/18 end-->
+  </ResolutionChromatixInfo>
+</ChromatixConfigurationRoot>
+

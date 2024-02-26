@@ -1,0 +1,205 @@
+<!--
+  Copyright (c) 2016 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!--
+CommonChromatixInfo:
+	CommonChromatixInfo is the information about chromatix needed for
+		various use cases.
+	Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+		3A and SW PostProc.
+	Entries in this node are common for all sensor modes.
+
+ResolutionChromatixInfo:
+	ResolutionChromatixInfo is the information about chromatix needed for
+		various use cases.
+	Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+		3A and SW PostProc.
+	Entries in this node are specific to sensor resolution.
+
+ChromatixName:
+	Contains the list of chromatix names for all modules.
+	special_mode_mask:
+		It is the bit mask for special modes, which is used for
+			chromatix selection.
+		Special modes can be any mode that needs a special chromatix.
+		Ex:- scene mode, DZOOM mode, OIS capture mode, flash mode
+		This is applicable for CommonChromatixInfo and
+			ResolutionChromatixInfo.
+		special_mode_mask="0" means none of the special modes are
+			selected.
+	sensor_resolution_index:
+		It is the sensor resolution index for which chromatix libraries
+			will be choosen.
+		It is applicable only in ResolutionChromatixInfo.
+
+ISPCommon :
+	Common tuning library name for ISP
+ISPPreview :
+	Preview tuning library name for ISP
+ISPSnapshot :
+	Snapshot tuning library name for ISP
+CPPCommon :
+	Common tuning library name for CPP
+CPPPreview :
+	Preview tuning library name for CPP
+CPPSnapshot :
+	Snapshot tuning library name for CPP
+CPPLiveshot :
+	Liveshot tuning library name for CPP
+PostProc :
+	Tuning library name for postproc module
+A3Preview :
+	Preview tuning library for 3A
+A3Video :
+	Video tuning library for 3A
+
+Order of Resolution Pick:
+	Assume the current sensor mode is "r" and special mode mask is "s".
+	Chromatix for a module and type is choosen in this order till we find a
+		valid chroamtix file name or else NULL is returned.
+	1) From ResolutionChromatixInfo node for which sensor_resolution_index
+		is "r" and special_mode_mask is "s".
+	2) From CommonChromatixInfo node for which special_mode_mask is "s".
+	3) From ResolutionChromatixInfo node for which sensor_resolution_index
+		is "r" and special_mode_mask is "0".
+	4) From CommonChromatixInfo node for which special_mode_mask is "0".
+	5) NULL is returned if we dont find in any of the above cases.
+
+special_mode_mask values:
+	SENSOR_SPECIAL_MODE_NONE = 0,
+	SENSOR_SPECIAL_MODE_FLASH = 1,
+	SENSOR_SPECIAL_MODE_ZOOM_UPSCALE = 2,
+	SENSOR_SPECIAL_MODE_ZOOM_DOWNSCALE = 4,
+	SENSOR_SPECIAL_MODE_OIS_CAPTURE = 8,
+-->
+<!-- HS60 code for HS60-46 by xuxianwei at 20190904 start -->
+<ChromatixConfigurationRoot>
+  <CommonChromatixInfo>
+    <ChromatixName special_mode_mask="0">
+      <ISPCommon>s5k3l6_hs70_jk_common</ISPCommon>
+      <PostProc>s5k3l6_hs70_jk_postproc</PostProc>
+    </ChromatixName>
+    <ChromatixName special_mode_mask = "ZOOM_UPSCALE">
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot_upscale</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName special_mode_mask = "ZOOM_DOWNSCALE">
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot_downscale</CPPSnapshot>
+    </ChromatixName>
+  </CommonChromatixInfo>
+  <ResolutionChromatixInfo>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_default_video</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_preview</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_video</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_liveshot</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_fullsize_preview_3a</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_fullsize_video_3a</A3Video>
+      <BeautyISPPreview>s5k3l6_hs70_preview_beauty</BeautyISPPreview>
+      <BeautyISPSnapshot>s5k3l6_hs70_snapshot_beauty</BeautyISPSnapshot>
+      <BeautyISPVideo>s5k3l6_hs70_default_video_beauty</BeautyISPVideo>
+      <BeautyCPPPreview>s5k3l6_hs70_cpp_preview_beauty</BeautyCPPPreview>
+      <BeautyCPPSnapshot>s5k3l6_hs70_cpp_snapshot_beauty</BeautyCPPSnapshot>
+      <BeautyCPPVideo>s5k3l6_hs70_cpp_video_beauty</BeautyCPPVideo>
+      <BeautyCPPLiveshot>s5k3l6_hs70_cpp_liveshot_beauty</BeautyCPPLiveshot>
+      <BeautyA3Preview>s5k3l6_hs70_fullsize_preview_3a_beauty</BeautyA3Preview>
+      <BeautyA3Video>s5k3l6_hs70_fullsize_video_3a_beauty</BeautyA3Video>
+      <PanoramaISPPreview>s5k3l6_hs70_preview_parma</PanoramaISPPreview>
+      <PanoramaISPSnapshot>s5k3l6_hs70_snapshot_parma</PanoramaISPSnapshot>
+      <PanoramaISPVideo>s5k3l6_hs70_default_video_parma</PanoramaISPVideo>
+      <PanoramaCPPPreview>s5k3l6_hs70_cpp_preview_parma</PanoramaCPPPreview>
+      <PanoramaCPPSnapshot>s5k3l6_hs70_cpp_snapshot_parma</PanoramaCPPSnapshot>
+      <PanoramaCPPVideo>s5k3l6_hs70_cpp_video_parma</PanoramaCPPVideo>
+      <PanoramaCPPLiveshot>s5k3l6_hs70_cpp_liveshot_parma</PanoramaCPPLiveshot>
+      <PanoramaA3Preview>s5k3l6_hs70_fullsize_preview_3a_parma</PanoramaA3Preview>
+      <PanoramaA3Video>s5k3l6_hs70_fullsize_video_3a_parma</PanoramaA3Video>
+    </ChromatixName>
+<!-- HS70 code for HS70-554 xiayu at 2019/12/14 start-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot_dual</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot_dual</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_default_video_dual</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_preview_dual</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot_dual</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_video_dual</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_liveshot_dual</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_fullsize_preview_3a_dual</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_fullsize_video_3a_dual</A3Video>
+    </ChromatixName>
+<!-- HS70 code for HS70-554 xiayu at 2019/12/14 end-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_default_video</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_preview</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_video</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_liveshot</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_fullsize_preview_3a</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_fullsize_video_3a</A3Video>
+    </ChromatixName>
+<!-- HS70 code for HS70-808 add flashlight by xionggengen at 2019/11/06 start-->
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_cpp_hfr_120</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_preview</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_hfr_120</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_liveshot</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_fullsize_preview_3a</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_hfr_120_3a</A3Video>
+    </ChromatixName>
+<!-- HS70 code for HS70-808 add flashlight by xionggengen at 2019/11/06 end-->
+    <!-- HS70 code for HS70 sunmao at 2020/04/16 start-->
+<ChromatixName sensor_resolution_index="4" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot_mix</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot_mix</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_video_mix</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_preview_cpp_mix</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_snapshot_cpp_mix</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_video_cpp_mix</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_liveshot_cpp_mix</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_fullsize_preview_3a_mix</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_fullsize_video_3a_mix</A3Video>
+      <TMOISPPreview>s5k3l6_hs70_jk_snapshot_mix</TMOISPPreview>
+      <TMOISPSnapshot>s5k3l6_hs70_jk_snapshot_mix</TMOISPSnapshot>
+      <TMOISPVideo>s5k3l6_hs70_jk_video_mix</TMOISPVideo>
+      <TMOCPPPreview>s5k3l6_hs70_jk_preview_cpp_mix</TMOCPPPreview>
+      <TMOCPPSnapshot>s5k3l6_hs70_jk_snapshot_cpp_mix</TMOCPPSnapshot>
+      <TMOCPPVideo>s5k3l6_hs70_jk_video_cpp_mix</TMOCPPVideo>
+      <TMOCPPLiveshot>s5k3l6_hs70_jk_liveshot_cpp_mix</TMOCPPLiveshot>
+      <TMOA3Preview>s5k3l6_hs70_jk_fullsize_preview_3a_mix</TMOA3Preview>
+      <TMOA3Video>s5k3l6_hs70_jk_fullsize_video_3a_mix</TMOA3Video>
+</ChromatixName>
+    <!-- HS70 code for HS70 sunmao at 2020/04/16 end-->
+    <ChromatixName sensor_resolution_index="5" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_snapshot_hdr</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_snapshot_hdr</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_default_video</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_snapshot_hdr</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_snapshot_hdr</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_snapshot_hdr</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_snapshot_hdr</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_hdr_snapshot_3a</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_hdr_snapshot_3a</A3Video>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="6" special_mode_mask="0">
+      <ISPPreview>s5k3l6_hs70_jk_video_hdr</ISPPreview>
+      <ISPSnapshot>s5k3l6_hs70_jk_video_hdr</ISPSnapshot>
+      <ISPVideo>s5k3l6_hs70_jk_default_video</ISPVideo>
+      <CPPPreview>s5k3l6_hs70_jk_cpp_video_hdr</CPPPreview>
+      <CPPSnapshot>s5k3l6_hs70_jk_cpp_video_hdr</CPPSnapshot>
+      <CPPVideo>s5k3l6_hs70_jk_cpp_video_hdr</CPPVideo>
+      <CPPLiveshot>s5k3l6_hs70_jk_cpp_video_hdr</CPPLiveshot>
+      <A3Preview>s5k3l6_hs70_jk_hdr_video_3a</A3Preview>
+      <A3Video>s5k3l6_hs70_jk_hdr_video_3a</A3Video>
+    </ChromatixName>
+  </ResolutionChromatixInfo>
+</ChromatixConfigurationRoot>
+<!-- HS60 code for HS60-46 by xuxianwei at 20190904 end -->
