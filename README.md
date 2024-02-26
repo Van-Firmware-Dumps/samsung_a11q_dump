@@ -1,0 +1,14 @@
+# a11qnsxx-user 12 SP1A.210812.016 A115FXXS6CWK2 release-keys
+- manufacturer: samsung
+- platform: msm8953
+- codename: a11q
+- flavor: a11qnsxx-user
+- release: 12
+- id: SP1A.210812.016
+- incremental: A115FXXS6CWK2
+- tags: release-keys
+- fingerprint: samsung/a11qnsxx/a11q:12/SP1A.210812.016/A115FXXS6CWK2:user/release-keys
+- is_ab: false
+- brand: samsung
+- branch: a11qnsxx-user-12-SP1A.210812.016-A115FXXS6CWK2-release-keys
+- repo: samsung_a11q_dump

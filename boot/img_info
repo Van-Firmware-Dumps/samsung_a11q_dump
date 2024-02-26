@@ -1,0 +1,14 @@
+kernel=kernel
+ramdisk=ramdisk
+dt=dt.img
+page_size=2048
+kernel_size=12783581
+ramdisk_size=1436448
+dtb_size=2
+base_addr=0x80000000
+kernel_offset=0x00008000
+ramdisk_offset=0x02000000
+tags_offset=0x01e00000
+cmd_line='console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlycon=msm_hsl_uart,0x78af000 androidboot.usbconfigfs=true vmalloc=300M loop.max_part=7'
+board="SRPSJ30A006"
+format=gzip
